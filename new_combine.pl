@@ -229,7 +229,7 @@ sub get_size{
 
 
 sub size{
-	&get_size;
+	#&get_size;
 	open F7,"new_gene_size";
 	while (<F7>){
 		/^(\S+)\t(\S+)$/;
@@ -241,11 +241,16 @@ sub size{
 		/^(\S+)\t(\S+)$/;
 		!defined $gene_size{$1} and next;
 		!defined $gene_size{$2} and next;
-		#	print "$1\t$2";
-		#for (1..($opts{z}/2)){
-			#	print "\t$gene_size{$1}\t$gene_size{$2}";
-			#}
-		#print "\n";
+		print "$1\t$2";
+		if ($gene_size{$1} < $gene_size{$2}){
+			my $tmp_size = "\t$gene_size{$2}\t$gene_size{$1}";
+		}else{
+			my $tmp_size = "\t$gene_size{$1}\t$gene_size{$2}";
+		}
+		for (1..($opts{z}/2)){
+				print $tmp_size;
+			}
+		print "\n";
 	}
 	close FH;
 	exit;
